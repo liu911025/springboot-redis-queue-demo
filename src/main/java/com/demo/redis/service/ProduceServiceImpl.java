@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.demo.redis.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -16,7 +17,7 @@ import java.util.Set;
 public class ProduceServiceImpl implements IProduceService {
 
 	@Autowired
-	private RedisTemplate redisTemplate;
+	private StringRedisTemplate stringRedisTemplate;
 
 	@Autowired
 	private RedisTemplate redisTemplate1;
@@ -26,7 +27,7 @@ public class ProduceServiceImpl implements IProduceService {
 	@Override
 	public void sendMsg(User user) {
 		String s = JSON.toJSONString(user);
-		redisTemplate.convertAndSend("myChannel", s);
+		stringRedisTemplate.convertAndSend("myChannel", s);
 	}
 
 	@Override
